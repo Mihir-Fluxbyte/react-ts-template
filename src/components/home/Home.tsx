@@ -29,6 +29,7 @@ function Home(props: HomeProps) {
             <button onClick={onLogout}>Logout</button>
             <button onClick={() => { auth?.dispatch({ type: 'LOGIN', payload: { token: `${Math.random()}` } }) }}>Random token </button>
             <button onClick={getApiTest}>Get Item</button>
+            <button onClick={()=>{navigate('/dashboard')}}>Dashboard</button>
             <span>Loading {loading?.state.isLoading} {loading?.state.counter}</span>
         </>
     )
