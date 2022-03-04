@@ -2,19 +2,18 @@ import { createContext } from "react";
 import { ContextProviderValueType, ContextProviderActionType } from "./Provider";
 
 
-type AppContextInterface = {
+type AppContextType = {
     isAuthenticated: Boolean,
     token: string | null,
     user: string | null
 }
+type ActionOptionType = 'LOGIN'|'LOGOUT'
+type ActionType = ContextProviderActionType<AppContextType , ActionOptionType>;
+type ContextProviderType = ContextProviderValueType<AppContextType, ActionOptionType> | null
 
-interface ActionType extends ContextProviderActionType<AppContextInterface>{
-    type: 'LOGIN'|'LOGOUT',
-}
+export default createContext<ContextProviderType>(null)
 
-export default createContext<ContextProviderValueType<AppContextInterface> | null>(null)
-
-export const initialAuthState = (): AppContextInterface =>  {
+export const initialAuthState = (): AppContextType =>  {
     return {
         isAuthenticated: Boolean(localStorage.getItem('token')),
         token: localStorage.getItem('token'),
@@ -22,7 +21,7 @@ export const initialAuthState = (): AppContextInterface =>  {
     }
 }
 
-export const authReducer  = (state: AppContextInterface, action: ActionType) =>{
+export const authReducer  = (state: AppContextType, action: ActionType) =>{
     switch (action.type){
         case "LOGIN":
             localStorage.setItem('user',action.payload?.user ?? '')
@@ -30,8 +29,8 @@ export const authReducer  = (state: AppContextInterface, action: ActionType) =>{
             return{
                 ...state,
                 isAuthenticated: true,
-                user: action.payload?.user,
-                token: action.payload?.token
+                user: action.payload.user === undefined ? state.user : action.payload.user,
+                token: action.payload.token === undefined ? state.token : action.payload.token
             }
         case "LOGOUT":
             localStorage.clear()

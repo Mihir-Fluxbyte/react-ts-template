@@ -1,5 +1,3 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
-export type GeneralProps = {
-    children ?: React.ReactNode
-} 
+export type GeneralProps<P>= PropsWithChildren<P>;
