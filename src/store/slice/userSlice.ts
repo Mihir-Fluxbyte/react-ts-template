@@ -1,8 +1,4 @@
-import { CaseReducer, createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
-import genericAction, {ResourceType } from "../genericAction";
-import { RootState } from "../store";
-// import 
-// import {}
+import genericStore from "../genericStore";
 
 type UserEntity = {
     id: string
@@ -10,23 +6,7 @@ type UserEntity = {
     email: string
 }
 
-type UserState = ResourceType<UserEntity>
-
-const initialState: UserState = {
-    ids:[],
-    entities:{}
-}
-// <UserState, SliceCaseReducers<UserState>, string>
-const userSlice = createSlice({
-    name:'user',
-    initialState,
-    reducers:{
-        add: (state, payload) => genericAction.add<UserEntity>(state, payload),
-        destroy: genericAction.destroy,
-        update: genericAction.update,
-        load: genericAction.load
-    }
-})
+const userSlice = genericStore.createResourceSlice<UserEntity>('user');
 
 export const userAction  = userSlice.actions
 

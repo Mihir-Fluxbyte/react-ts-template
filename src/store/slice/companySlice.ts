@@ -1,29 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ResourceType } from "../genericAction";
-import { RootState } from "../store";
+import genericStore from "../genericStore";
 
-type companyEntity = {
+type CompanyEntity = {
     id: string
-    name: string,
-    email: string
+    companyName: string,
+    city: string
 }
 
-type CompanyState = ResourceType<companyEntity>
-
-const initialState: CompanyState = {
-    ids:[],
-    entities:{}
-}
-
-const companySlice = createSlice({
-    name:'company',
-    initialState,
-    reducers:{
-        add(state,action){
-
-        }
-    }
-})
+const companySlice = genericStore.createResourceSlice<CompanyEntity>('company');
 
 export const companyAction  = companySlice.actions
 

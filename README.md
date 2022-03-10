@@ -44,3 +44,41 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+---
+### How to Use Scss in react
+install package and create file style.scss
+`npm i sass`
+
+## Setup Redux
+`npm install @reduxjs/toolkit react-redux`
+
+## LEARN TYPESCRIPT
+https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-type-assertions
+
+```TYPESCRIPT
+type TypeName<T> = T extends string
+  ? "string"
+  : T extends number
+  ? "number"
+  : T extends boolean
+  ? "boolean"
+  : T extends undefined
+  ? "undefined"
+  : T extends Function
+  ? "function"
+  : "object";
+
+type T5 = TypeName<string | (() => void)>;
+
+type NotNullable<T> = Diff<T, null | undefined>;
+
+// Remove types from T that are assignable to U
+type Diff<T, U> = T extends U ? never : T;
+// Remove types from T that are not assignable to U
+type Filter<T, U> = T extends U ? T : never;
+
+type T1 = Diff<"a" | "b" | "c" | "d", "a" | "c" | "f">;
+```

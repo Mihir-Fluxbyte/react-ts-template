@@ -4,8 +4,8 @@ import companyReducer from "./slice/companySlice";
 
 export const store = configureStore({
     reducer:{
-        user:userReducer,
-        company:companyReducer
+        user: userReducer,
+        company: companyReducer
     }
 })
 
