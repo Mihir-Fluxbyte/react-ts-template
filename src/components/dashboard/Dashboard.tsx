@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hook';
 import { userAction } from '../../store/slice/userSlice';
 import { companyAction } from '../../store/slice/companySlice';
-import { text } from 'stream/consumers';
 type DashboardProps = {
 }
 
