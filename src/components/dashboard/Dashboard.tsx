@@ -2,11 +2,15 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hook';
 import { userAction } from '../../store/slice/userSlice';
 import { companyAction } from '../../store/slice/companySlice';
+import useCombineSelector from '../../hooks/useCombineSelector';
+
 type DashboardProps = {
 }
 
 export default function Dashboard(props: DashboardProps) {
-    const userData = useAppSelector(state => state.user)    
+    const userData = useAppSelector(state => state.user)
+    const combineData = useCombineSelector('company','user','companyId');
+    console.log(combineData); 
     const dispatch = useAppDispatch()
     const [userInput, setUserInput] = useState({
         name: '',
@@ -15,10 +19,16 @@ export default function Dashboard(props: DashboardProps) {
 
     const AddUser =() =>{
         dispatch(userAction.load([
-            {id:'1',email: 'Mihir.fluxbyte@gmail.com', name:'Mihir'},
-            {id:'2',email: 'harsh.fluxbyte@gmail.com', name:'Harsh'},
-            {id:'3',email: 'yash.fluxbyte@gmail.com', name:'Yash'},
-            {id:'4',email: 'anand.fluxbyte@gmail.com', name:'Anand'},
+            {id:'1',email: 'Mihir.fluxbyte@gmail.com', name:'Mihir', companyId: '1'},
+            {id:'2',email: 'harsh.fluxbyte@gmail.com', name:'Harsh', companyId: '1'},
+            {id:'3',email: 'yash.fluxbyte@gmail.com', name:'Yash', companyId: '1'},
+            {id:'4',email: 'anand.fluxbyte@gmail.com', name:'Anand', companyId: '2'},
+        ]))
+        dispatch(companyAction.load([
+            {id:'1',city: '', companyName: ''},
+            {id:'2',city: '', companyName: ''},
+            {id:'3',city: '', companyName: ''},
+            {id:'4',city: '', companyName: ''},
         ]))
     }
 
@@ -30,7 +40,7 @@ export default function Dashboard(props: DashboardProps) {
 
     function onSubmitUser(e: FormEvent){
         e?.preventDefault();
-        dispatch(userAction.add({...userInput, id: userData.ids.length === 0 ? `1` : `${Math.max(...userData.ids.map(x=> Number(x)))+ 1}`}))
+        dispatch(userAction.add({...userInput, id: userData.ids.length === 0 ? `1` : `${Math.max(...userData.ids.map(x=> Number(x)))+ 1}`, companyId: '2'}))
         setUserInput({
             name: '',
             email: ''
